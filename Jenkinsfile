@@ -15,7 +15,7 @@ pipeline {
         STG_APP_ENDPOINT = "ip10-0-21-4-cpisfdjj2epg008vt5k0-8080.direct.docker.labs.eazytraining.fr"
         PROD_API_ENDPOINT = "ip10-0-21-4-cpisfdjj2epg008vt5k0-1993.direct.docker.labs.eazytraining.fr"
         PROD_APP_ENDPOINT = "ip10-0-21-4-cpisfdjj2epg008vt5k0-80.direct.docker.labs.eazytraining.fr"
-        INTERNAL_PORT = "5000"
+        INTERNAL_PORT = "80"
         EXTERNAL_PORT = "${PORT_EXPOSED}"
         CONTAINER_IMAGE = "${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}"
     }
