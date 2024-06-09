@@ -1,5 +1,5 @@
 /* import shared library */
-@Library('cathalina-shared-library ')_
+@Library('cathalina-shared-library') _
 
 pipeline {
     environment {
