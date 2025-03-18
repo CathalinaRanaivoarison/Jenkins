@@ -1,7 +1,8 @@
 # 🚀 CI/CD Pipeline avec Jenkins et Docker
 
 ## 📌 Description
-Ce projet met en place un pipeline CI/CD complet pour une application Python conteneurisée avec **Docker**, géré par **Jenkins**. Il suit ses étapes d'intégration et de déploiement continus :
+Ce projet met en place un pipeline CI/CD complet pour une application Python conteneurisée avec **Docker**, géré par **Jenkins**. 
+Il suit ses étapes d'intégration et de déploiement continus :
 
 ### 1️⃣ **CI Pipeline (Continuous Integration)**
 - **Code** : Versionnage du code dans un référentiel Git.
@@ -56,6 +57,54 @@ docker build -t mon-image .
 docker run -d -p 5000:5000 mon-image
 ```
 
+### **Déploiement dans un environnement spécifique**
+
+#### **1️⃣ Déploiement sur une VM (ex: AWS EC2, DigitalOcean, OVH)**
+1. Connectez-vous à votre VM via SSH :
+   ```bash
+   ssh utilisateur@ip-de-la-vm
+   ```
+2. Installez Docker si ce n'est pas déjà fait :
+   ```bash
+   sudo apt update && sudo apt install -y docker.io
+   ```
+3. Récupérez et exécutez l'image Docker :
+   ```bash
+   docker pull votre-utilisateur-docker/mon-image
+   docker run -d -p 5000:5000 votre-utilisateur-docker/mon-image
+   ```
+
+#### **2️⃣ Déploiement sur Kubernetes**
+1. Assurez-vous que `kubectl` et `minikube` sont installés.
+2. Démarrez Minikube (si local) :
+   ```bash
+   minikube start
+   ```
+3. Déployez l'application avec Kubernetes :
+   ```bash
+   kubectl apply -f deployment.yaml
+   ```
+4. Vérifiez le déploiement :
+   ```bash
+   kubectl get pods
+   ```
+
+#### **3️⃣ Déploiement sur Heroku**
+1. Installez la CLI Heroku : [Télécharger ici](https://devcenter.heroku.com/articles/heroku-cli)
+2. Connectez-vous à Heroku :
+   ```bash
+   heroku login
+   ```
+3. Ajoutez un `Procfile` avec :
+   ```
+   web: gunicorn app:app
+   ```
+4. Déployez avec :
+   ```bash
+   heroku create mon-app
+   git push heroku main
+   ```
+
 ---
 
 ## 📌 Structure du projet
@@ -66,6 +115,7 @@ docker run -d -p 5000:5000 mon-image
  ├── 📜 Dockerfile        # Image Docker
  ├── 📂 app/              # Code source de l'application
  ├── 📂 tests/            # Tests unitaires
+ ├── 📜 deployment.yaml   # Configuration Kubernetes
 ```
 
 ---
