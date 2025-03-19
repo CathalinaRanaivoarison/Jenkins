@@ -85,7 +85,7 @@ pipeline {
                 script {
                     try {
                         docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
-                            docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push()
+                            docker.image("cathalina/${IMAGE_NAME}:${IMAGE_TAG}").push()
                         }
                     } catch (Exception e) {
                         error "Échec du push de l'image sur Docker Hub: ${e.getMessage()}"
