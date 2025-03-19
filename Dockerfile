@@ -1,9 +1,32 @@
-FROM nginx:1.21.1
-LABEL maintainer="Cathalina Ranaivoarison"
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y curl && \
-    apt-get install -y git
-RUN rm -Rf /usr/share/nginx/html/*
-RUN git clone https://github.com/diranetafen/static-website-example.git /usr/share/nginx/html
-CMD nginx -g 'daemon off;'
+FROM python:3.12-slim
+
+# Définir des variables d'environnement
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV PORT 8180
+ENV PYTHONPATH=/app
+
+# Créer et définir le répertoire de travail
+WORKDIR /app
+
+# Copier les fichiers de dépendances
+COPY requirements.txt .
+
+# Mettre à jour pip
+RUN pip install --no-cache-dir --upgrade pip
+
+# Installer les dépendances
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copier le reste du code source
+COPY . .
+
+# Exposer le port
+EXPOSE $PORT
+
+# Créer un volume pour les données persistantes
+VOLUME ["/app-data"]
+
+# Commande pour exécuter l'application
+CMD gunicorn -b :$PORT -c gunicorn.conf.py main:app
+
