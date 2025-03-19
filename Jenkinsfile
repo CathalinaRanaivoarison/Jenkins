@@ -5,7 +5,7 @@ pipeline {
         IMAGE_NAME = "python-app"  
         IMAGE_TAG = "v1.0.0"                             
         REGISTRY_CREDENTIALS = 'docker-hub-credentials'  
-        APP_EXPOSED_PORT = "5000"                        // Port exposé de l'application
+        APP_EXPOSED_PORT = "5002"                        // Port exposé de l'application
         INTERNAL_PORT = "5000"                           // Port interne du conteneur
     }
 
