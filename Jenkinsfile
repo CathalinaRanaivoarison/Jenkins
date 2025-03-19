@@ -13,7 +13,7 @@ pipeline {
         // Étape de récupération du code depuis Git
         stage('Checkout Code') {
             steps {
-                git credentialsId: 'git-credentials', url: 'https://github.com/CathalinaRanaivoarison/Jenkins.git' 
+                git credentialsId: 'git-credentials', url: 'https://github.com/CathalinaRanaivoarison/Jenkins.git', branch: 'main' 
             }
         }
 
