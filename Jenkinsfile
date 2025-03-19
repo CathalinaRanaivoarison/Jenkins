@@ -59,7 +59,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        curl -v http://localhost:$APP_EXPOSED_PORT | grep -i "Dimension"
+                        curl -v http://localhost:$INTERNAL_PORT | grep -i "Dimension"
                     '''
                 }
             }
