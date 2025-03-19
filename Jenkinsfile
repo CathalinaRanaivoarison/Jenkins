@@ -59,12 +59,12 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        curl -v http://localhost:$APP_EXPOSED_PORT 
+                        curl -v http://host.docker.internal:$APP_EXPOSED_PORT
                     '''
                 }
             }
         }
-        // curl -v http://host.docker.internal:$APP_EXPOSED_PORT
+        // curl -v http://localhost:$APP_EXPOSED_PORT
 
         // Étape de nettoyage du conteneur après les tests
         stage('Clean container') {
