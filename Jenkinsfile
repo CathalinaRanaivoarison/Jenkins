@@ -6,7 +6,7 @@ pipeline {
         IMAGE_TAG = "v1.0.0"                             
         REGISTRY_CREDENTIALS = 'docker-hub-credentials'  
         APP_EXPOSED_PORT = "5002"                        // Port exposé de l'application
-        INTERNAL_PORT = "8080"                           // Port interne du conteneur
+        INTERNAL_PORT = "8180"                           // Port interne du conteneur
     }
 
     stages {
