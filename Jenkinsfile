@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "cathalinaranaivoarison/python-app"  
+        IMAGE_NAME = "python-app"  
         IMAGE_TAG = "v1.0.0"                             
         REGISTRY_CREDENTIALS = 'docker-hub-credentials'  
         APP_EXPOSED_PORT = "5000"                        // Port exposé de l'application
