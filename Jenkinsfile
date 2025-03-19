@@ -84,23 +84,18 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    try {
-                        // Vérification des variables avant l'exécution
-                        echo "Pushing image ${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}"
-                        docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
-                            // docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push()
-                            def image = docker.image("${IMAGE_NAME}:${IMAGE_TAG}")
-                            image.tag("cathalina/python-app:latest")  // Tag correct pour Docker Hub
-                            // Pousser l'image vers Docker Hub
-                            echo "Pushing image ${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG} to Docker Hub"
-                            //image.push()  
-
-                        }
-                    } catch (Exception e) {
-                        error "Échec du push de l'image sur Docker Hub: ${e.getMessage()}"
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
+                        def image = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                        
+                        // Tagging correct (sans URL de registre)
+                        image.tag("${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}")
+                        
+                        // Push vers Docker Hub
+                        image.push()
                     }
                 }
             }
         }
+
     }
 }
