@@ -17,7 +17,6 @@ RUN pip install --no-cache-dir --upgrade pip
 
 # Installer les dépendances
 RUN pip install --no-cache-dir -r requirements.txt
-flake8 --version
 
 # Installer flake8 pour le linting
 #RUN pip install --no-cache-dir flake8 RUN pip install flake8==4.0.1
