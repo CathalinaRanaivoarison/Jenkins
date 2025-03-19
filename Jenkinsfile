@@ -93,7 +93,7 @@ pipeline {
                             image.tag("${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}")  // Tag correct pour Docker Hub
                             // Pousser l'image vers Docker Hub
                             echo "Pushing image ${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG} to Docker Hub"
-                            image.push()  
+                            //image.push()  
 
                         }
                     } catch (Exception e) {
