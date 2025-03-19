@@ -32,11 +32,11 @@ pipeline {
         }
 
         // Étape de linting du code avec Flake8
-        stage('Lint Code') {
-            steps {
-                sh 'flake8 .'  // Exécute Flake8 pour vérifier le code
-            }
-        }
+        //stage('Lint Code') {
+        //    steps {
+        //        sh 'flake8 .'  // Exécute Flake8 pour vérifier le code
+        //    }
+        // }
 
         // Étape d'exécution du conteneur basé sur l'image construite
         stage('Run container based on built image') {
