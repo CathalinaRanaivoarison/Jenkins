@@ -87,7 +87,7 @@ pipeline {
                         docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
                             // docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push()
                             def image = docker.image("${IMAGE_NAME}:${IMAGE_TAG}")
-                            image.tag("cathalina/${IMAGE_NAME}")  // Tag correct pour Docker Hub
+                            image.tag("cathalina/${IMAGE_NAME}:lastest")  // Tag correct pour Docker Hub
                             image.push()  
 
                         }
