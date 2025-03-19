@@ -4,7 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = "python-app"  
         IMAGE_TAG = "v1.0.0"                             
-        REGISTRY_CREDENTIALS = 'docker-hub-credentials'  
+        REGISTRY_CREDENTIALS = "docker-hub-credentials"  
         APP_EXPOSED_PORT = "5002"                        // Port exposé de l'application
         INTERNAL_PORT = "8180"                           // Port interne du conteneur
     }
@@ -59,12 +59,12 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        curl -v http://host.docker.internal:$APP_EXPOSED_PORT
+                        curl -v http://localhost:$APP_EXPOSED_PORT 
                     '''
                 }
             }
         }
-        // curl -v http://localhost:$APP_EXPOSED_PORT | grep -i "Dimension"
+        // curl -v http://host.docker.internal:$APP_EXPOSED_PORT
 
         // Étape de nettoyage du conteneur après les tests
         stage('Clean container') {
@@ -84,7 +84,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        docker.withRegistry('https://index.docker.io/v1/', REGISTRY_CREDENTIALS) {
+                        docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
                             docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push()
                         }
                     } catch (Exception e) {
