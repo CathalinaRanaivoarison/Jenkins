@@ -3,7 +3,8 @@ pipeline {
 
     environment {
         IMAGE_NAME = "python-app"  
-        IMAGE_TAG = "v1.0.0"                             
+        IMAGE_TAG = "latest" 
+        DOCKERHUB_ID = "cathalina" 
         REGISTRY_CREDENTIALS = "docker-hub-credentials"  
         APP_EXPOSED_PORT = "5002"                        // Port exposé de l'application
         INTERNAL_PORT = "8180"                           // Port interne du conteneur
@@ -84,10 +85,14 @@ pipeline {
             steps {
                 script {
                     try {
+                        // Vérification des variables avant l'exécution
+                        echo "Pushing image ${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}"
                         docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
                             // docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push()
                             def image = docker.image("${IMAGE_NAME}:${IMAGE_TAG}")
-                            image.tag("cathalina/${IMAGE_NAME}:lastest")  // Tag correct pour Docker Hub
+                            image.tag("${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}")  // Tag correct pour Docker Hub
+                            // Pousser l'image vers Docker Hub
+                            echo "Pushing image ${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG} to Docker Hub"
                             image.push()  
 
                         }
