@@ -86,7 +86,10 @@ pipeline {
                     try {
                         docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
                             //docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push()
-                            docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push("index.docker.io/cathalina/python-app:${IMAGE_TAG}")
+                            // Tag de l'image avec le nom du dépôt Docker Hub
+                            docker.image("${IMAGE_NAME}:${IMAGE_TAG}").tag("cathalina/python-app:${IMAGE_TAG}")
+                            // Push de l'image dans Docker Hub
+                            docker.image("cathalina/python-app:${IMAGE_TAG}").push()
 
                         }
                     } catch (Exception e) {
