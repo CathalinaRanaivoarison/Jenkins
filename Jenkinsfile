@@ -59,11 +59,12 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        curl -v http://localhost:$APP_EXPOSED_PORT | grep -i "Dimension"
+                        curl -v http://host.docker.internal:$APP_EXPOSED_PORT | grep -i "Dimension"
                     '''
                 }
             }
         }
+        // curl -v http://localhost:$APP_EXPOSED_PORT | grep -i "Dimension"
 
         // Étape de nettoyage du conteneur après les tests
         stage('Clean container') {
