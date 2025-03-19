@@ -90,7 +90,7 @@ pipeline {
                         docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
                             // docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push()
                             def image = docker.image("${IMAGE_NAME}:${IMAGE_TAG}")
-                            image.tag("${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}")  // Tag correct pour Docker Hub
+                            image.tag("cathalina/python-app:latest")  // Tag correct pour Docker Hub
                             // Pousser l'image vers Docker Hub
                             echo "Pushing image ${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG} to Docker Hub"
                             //image.push()  
