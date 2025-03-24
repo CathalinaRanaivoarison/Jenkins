@@ -84,18 +84,14 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
-                        def image = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
-                        
-                        // Tagging correct (sans URL de registre)
-                        image.tag("${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}")
-                        
-                        // Push vers Docker Hub
-                        image.push()
+                    docker.withRegistry('https://index.docker.io/v1/', "${REGISTRY_CREDENTIALS}") {
+                        def appImage = docker.image("${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}")
+                        appImage.push()
+                        appImage.push("${env.BUILD_NUMBER}")
                     }
                 }
             }
         }
-
+        
     }
 }
