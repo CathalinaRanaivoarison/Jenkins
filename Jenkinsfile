@@ -84,11 +84,7 @@ pipeline {
                 }
             }
         }
-        stage('Verify Docker Image') {
-            steps {
-                sh "docker images"
-            }
-        }
+       
         // Étape de push de l'image sur Docker Hub
         stage('Push to Docker Hub') {
             steps {
