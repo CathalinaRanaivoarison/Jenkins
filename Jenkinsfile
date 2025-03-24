@@ -98,12 +98,7 @@ pipeline {
             }
         }
 
-        stage('Verify Docker Image') {
-            steps {
-                sh "docker images"
-            }
-        }
-
+   
         
         stage('Cleanup') {
             steps {
