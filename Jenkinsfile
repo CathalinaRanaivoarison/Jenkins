@@ -23,15 +23,15 @@ pipeline {
             steps {
                 script {
                     try {
-                        // Construit l'image Docker en utilisant le Dockerfile du répertoire courant
-                        //docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
-                        docker.build("${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}"
+                        docker.build("${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}")
+                        sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}"
                     } catch (Exception e) {
                         error "Échec de la construction de l'image Docker: ${e.getMessage()}"
                     }
                 }
             }
         }
+
 
         // Étape de linting du code avec Flake8
         //stage('Lint Code') {
@@ -48,7 +48,6 @@ pipeline {
                     sh '''
                         echo "Cleaning existing container if it exists"
                         docker ps -a | grep -i $IMAGE_NAME && docker rm -f $IMAGE_NAME
-    
                         docker run --name $IMAGE_NAME -d -p $APP_EXPOSED_PORT:$INTERNAL_PORT ${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}
                         sleep 5
                     '''
@@ -68,7 +67,11 @@ pipeline {
             }
         }
         // curl -v http://localhost:$APP_EXPOSED_PORT
-
+        stage('Verify Docker Image') {
+            steps {
+                sh "docker images"
+            }
+        }
         // Étape de nettoyage du conteneur après les tests
         stage('Clean container') {
             agent any
@@ -81,10 +84,12 @@ pipeline {
                 }
             }
         }
-
+        stage('Verify Docker Image') {
+            steps {
+                sh "docker images"
+            }
+        }
         // Étape de push de l'image sur Docker Hub
-        
-
         stage('Push to Docker Hub') {
             steps {
                 script {
