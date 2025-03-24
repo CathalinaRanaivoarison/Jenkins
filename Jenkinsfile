@@ -24,7 +24,8 @@ pipeline {
                 script {
                     try {
                         // Construit l'image Docker en utilisant le Dockerfile du répertoire courant
-                        docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                        //docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                        docker.build("${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}"
                     } catch (Exception e) {
                         error "Échec de la construction de l'image Docker: ${e.getMessage()}"
                     }
@@ -81,6 +82,8 @@ pipeline {
         }
 
         // Étape de push de l'image sur Docker Hub
+        
+
         stage('Push to Docker Hub') {
             steps {
                 script {
@@ -92,6 +95,13 @@ pipeline {
                 }
             }
         }
+
+        stage('Verify Docker Image') {
+            steps {
+                sh "docker images"
+            }
+        }
+
         
     }
 }
