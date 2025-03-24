@@ -24,7 +24,7 @@ pipeline {
                 script {
                     try {
                         docker.build("${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}")
-                        sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}"
+                        // sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}"
                     } catch (Exception e) {
                         error "Échec de la construction de l'image Docker: ${e.getMessage()}"
                     }
