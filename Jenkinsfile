@@ -48,12 +48,13 @@ pipeline {
                     sh '''
                         echo "Cleaning existing container if it exists"
                         docker ps -a | grep -i $IMAGE_NAME && docker rm -f $IMAGE_NAME
-                        docker run --name $IMAGE_NAME -d -p $APP_EXPOSED_PORT:$INTERNAL_PORT $IMAGE_NAME:$IMAGE_TAG
+    
+                        docker run --name $IMAGE_NAME -d -p $APP_EXPOSED_PORT:$INTERNAL_PORT ${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}
                         sleep 5
                     '''
                 }
             }
-        }
+        } // docker run --name $IMAGE_NAME -d -p $APP_EXPOSED_PORT:$INTERNAL_PORT $IMAGE_NAME:$IMAGE_TAG
 
         // Étape de test de l'image Docker
         stage('Test image') {
@@ -103,5 +104,13 @@ pipeline {
         }
 
         
+        stage('Cleanup') {
+            steps {
+                sh "docker rmi ${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}"
+                sh "docker rmi ${DOCKERHUB_ID}/${IMAGE_NAME}:${env.BUILD_NUMBER}"
+            }
+        }
+
+ 
     }
 }
