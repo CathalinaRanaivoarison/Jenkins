@@ -94,7 +94,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', "${REGISTRY_CREDENTIALS}") {
-                        def appImage = docker.image("${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}")
+                        def appImage = docker.image("${IMAGE_NAME}:${IMAGE_TAG}")
                         appImage.push()
                         appImage.push("${env.BUILD_NUMBER}")
                     }
